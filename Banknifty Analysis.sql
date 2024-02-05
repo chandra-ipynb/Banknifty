@@ -1,5 +1,7 @@
-/*
-Here O- Open, H-High, L-Low, C-Close 
+/*Here I am analysing the Day and Intraday(within a day) market movements of banknifty index of Indian stock market
+Few of the metrics I had written the queries for
+Fastest movement percentage within specified time period in banknifty index
+O- Open, H-High, L-Low, C-Close CO - Percentage difference between close of a candle(C) to open(O) of a candle (same with HL)
 CO - Percentage difference between close of a candle(C) to open(O) of a candle (same with  HL)
 */
 --Data Cleaning
@@ -29,7 +31,7 @@ where cast(start_time as date) = '2017-11-24'
 group by datepart(hour,start_time)
 order by datepart(hour,start_time) desc
 
-–Momentum
+â€“Momentum
 --Misc Analysis
 
 --Original HL, CO
@@ -227,7 +229,7 @@ from bn_intra
 select *,round((prev/c-1)*100,2) 'CO' from t1
 order by start_time desc
 
-– Avg_AbsCO
+â€“ Avg_AbsCO
 with t1 as(
 select *
 ,lag(start_time,19) over (order by start_time desc) 'endtime'
@@ -306,7 +308,7 @@ cast(start_time as date) = cast(endtime as date)
 )
 select [start_time], [percent] from r where col =1
 
-–+ve and -ve trends 
+â€“+ve and -ve trends 
 
 --15 min
 --Hourwise Avg_AbsCO X (9,1,2,3 hrs)
